@@ -27,11 +27,11 @@ cp .env.example .env
 
 ```bash
 # Test only 2 models × 3 personas
-python run_stage1_behaviors.py \
+python scripts/run_stage1_behaviors.py \
     --models "openai/gpt-4o-mini,anthropic/claude-3.7-sonnet" \
     --personas data/inputs/personas_test.json
 
-python run_stage2_stories.py \
+python scripts/run_stage2_stories.py \
     --models "openai/gpt-4o-mini,anthropic/claude-3.7-sonnet" \
     --personas data/inputs/personas_test.json
 ```
@@ -40,10 +40,10 @@ python run_stage2_stories.py \
 
 ```bash
 # Stage 1: Collect all behavioral data (takes several hours)
-python run_stage1_behaviors.py
+python scripts/run_stage1_behaviors.py
 
 # Stage 2: Generate stories (takes 1-2 hours)
-python run_stage2_stories.py
+python scripts/run_stage2_stories.py
 
 # Stage 3: LIWC analysis (you'll do this later with LIWC-22 tool)
 # Stage 4: Statistical analysis (you'll do this later with R/Python)
@@ -55,7 +55,7 @@ python run_stage2_stories.py
 
 ### Stage 1: Behavioral Data Collection 🔴
 
-**Script**: `run_stage1_behaviors.py`
+**Script**: `scripts/run_stage1_behaviors.py`
 
 **Data Collected**:
 - ✅ BFI-44 (Big Five Inventory, 44 questions)
@@ -92,7 +92,7 @@ python run_stage2_stories.py
 
 **Command Line Arguments**:
 ```bash
-python run_stage1_behaviors.py \
+python scripts/run_stage1_behaviors.py \
     --models "model1,model2,..."           # Specify models
     --personas data/inputs/personas.json   # Specify personas file
     --output-dir data/outputs/behaviors    # Output directory
@@ -104,7 +104,7 @@ python run_stage1_behaviors.py \
 
 ### Stage 2: Story Generation (Using BFI Warm-up) 🟡
 
-**Script**: `run_stage2_stories.py`
+**Script**: `scripts/run_stage2_stories.py`
 
 **Method**:
 1. Read BFI results from Stage 1
@@ -126,7 +126,7 @@ python run_stage1_behaviors.py \
 
 **Command Line Arguments**:
 ```bash
-python run_stage2_stories.py \
+python scripts/run_stage2_stories.py \
     --models "model1,model2,..."                 # Specify models
     --personas data/inputs/personas.json         # Specify personas file
     --behaviors-dir data/outputs/behaviors       # Stage 1 output directory
@@ -184,10 +184,10 @@ df = merge(behaviors, liwc)
 
 ```bash
 # Test only Claude 3.7
-python run_stage1_behaviors.py \
+python scripts/run_stage1_behaviors.py \
     --models "anthropic/claude-3.7-sonnet"
 
-python run_stage2_stories.py \
+python scripts/run_stage2_stories.py \
     --models "anthropic/claude-3.7-sonnet"
 ```
 
@@ -205,8 +205,8 @@ Create `data/inputs/personas_test.json` with only 3-5 personas:
 
 Then run:
 ```bash
-python run_stage1_behaviors.py --personas data/inputs/personas_test.json
-python run_stage2_stories.py --personas data/inputs/personas_test.json
+python scripts/run_stage1_behaviors.py --personas data/inputs/personas_test.json
+python scripts/run_stage2_stories.py --personas data/inputs/personas_test.json
 ```
 
 ### Use Case 3: Re-run Story Generation Only
@@ -218,20 +218,20 @@ If Stage 1 is complete and you only want to regenerate stories:
 rm -rf data/outputs/stories/*
 
 # Regenerate (will automatically read BFI results from Stage 1)
-python run_stage2_stories.py
+python scripts/run_stage2_stories.py
 ```
 
 ### Use Case 4: Run in Batches (Cost Control)
 
 ```bash
 # First batch: 6 small models
-python run_stage1_behaviors.py \
+python scripts/run_stage1_behaviors.py \
     --models "meta-llama/llama-3.2-3b-instruct,meta-llama/llama-3-8b-instruct,qwen/qwen-2.5-1.5b-instruct,qwen/qwen-2.5-7b-instruct,mistralai/mistral-7b-instruct,allenai/olmo-2-1124-7b-instruct"
 
 # Check data quality...
 
 # Second batch: 6 large models
-python run_stage1_behaviors.py \
+python scripts/run_stage1_behaviors.py \
     --models "meta-llama/llama-3.3-70b-instruct,meta-llama/llama-3.1-405b-instruct,qwen/qwen-2.5-72b-instruct,qwen/qwq-32b-preview,anthropic/claude-3.7-sonnet,openai/gpt-4o"
 ```
 
@@ -298,7 +298,7 @@ python scripts/check_trait_mentions.py
 
 ```bash
 # Continue running, will only process incomplete tasks
-python run_stage1_behaviors.py
+python scripts/run_stage1_behaviors.py
 ```
 
 ### Q2: What if a model's API fails?
@@ -307,7 +307,7 @@ python run_stage1_behaviors.py
 
 ```bash
 # Re-run only the failed model
-python run_stage1_behaviors.py --models "failed_model_name"
+python scripts/run_stage1_behaviors.py --models "failed_model_name"
 ```
 
 ### Q3: How to change the story prompt?
@@ -319,7 +319,7 @@ python run_stage1_behaviors.py --models "failed_model_name"
 rm -rf data/outputs/stories/*
 
 # Regenerate
-python run_stage2_stories.py
+python scripts/run_stage2_stories.py
 ```
 
 ### Q4: How to estimate total cost?

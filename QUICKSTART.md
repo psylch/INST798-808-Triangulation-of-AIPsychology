@@ -22,7 +22,7 @@ python -c "import openai; print('✓ OpenAI installed')"
 
 ```bash
 # Stage 1: Collect behavioral data (~5-10 minutes, 6 groups)
-python run_stage1_behaviors.py \
+python scripts/run_stage1_behaviors.py \
     --models "openai/gpt-4o-mini,anthropic/claude-3.7-sonnet" \
     --personas data/inputs/personas_test.json
 
@@ -30,7 +30,7 @@ python run_stage1_behaviors.py \
 python scripts/check_progress.py
 
 # Stage 2: Generate stories (~3-5 minutes, 6 stories)
-python run_stage2_stories.py \
+python scripts/run_stage2_stories.py \
     --models "openai/gpt-4o-mini,anthropic/claude-3.7-sonnet" \
     --personas data/inputs/personas_test.json
 
@@ -99,30 +99,30 @@ Expected:
 # Stage 1: 12 models × 32 personas = 384 groups
 # Estimated time: 2-4 hours
 # Estimated cost: $20-30 (depending on model pricing)
-python run_stage1_behaviors.py
+python scripts/run_stage1_behaviors.py
 
 # Stage 2: 384 stories
 # Estimated time: 1-2 hours
 # Estimated cost: $2-5
-python run_stage2_stories.py
+python scripts/run_stage2_stories.py
 ```
 
 ### Option B: Batch Run (Recommended, Safer)
 
 ```bash
 # First batch: Small models (6 models)
-python run_stage1_behaviors.py \
+python scripts/run_stage1_behaviors.py \
     --models "meta-llama/llama-3.2-3b-instruct,meta-llama/llama-3-8b-instruct,qwen/qwen-2.5-1.5b-instruct,qwen/qwen-2.5-7b-instruct,mistralai/mistral-7b-instruct,allenai/olmo-2-1124-7b-instruct"
 
 # Check quality
 python scripts/check_progress.py
 
 # If no issues, continue with second batch: Large models (6 models)
-python run_stage1_behaviors.py \
+python scripts/run_stage1_behaviors.py \
     --models "meta-llama/llama-3.3-70b-instruct,meta-llama/llama-3.1-405b-instruct,qwen/qwen-2.5-72b-instruct,qwen/qwq-32b-preview,anthropic/claude-3.7-sonnet,openai/gpt-4o"
 
 # After all complete, generate stories
-python run_stage2_stories.py
+python scripts/run_stage2_stories.py
 ```
 
 ---
@@ -149,7 +149,7 @@ python scripts/check_progress.py
 cat data/outputs/logs/*.log
 
 # Re-run only the failed model
-python run_stage1_behaviors.py --models "failed_model_name"
+python scripts/run_stage1_behaviors.py --models "failed_model_name"
 ```
 
 ### Q: Want to pause/resume
@@ -159,7 +159,7 @@ No problem! The script will automatically skip completed data:
 ```bash
 # You can interrupt at any time (Ctrl+C)
 # Re-running will continue from where it left off
-python run_stage1_behaviors.py
+python scripts/run_stage1_behaviors.py
 ```
 
 ### Q: Modified story prompt and want to regenerate
@@ -169,7 +169,7 @@ python run_stage1_behaviors.py
 # 2. Delete old stories
 rm -rf data/outputs/stories/*
 # 3. Regenerate
-python run_stage2_stories.py
+python scripts/run_stage2_stories.py
 ```
 
 ---
@@ -217,9 +217,9 @@ After data collection:
 
 ```
 Final Project/
-├── run_stage1_behaviors.py    ← Stage 1 main script
-├── run_stage2_stories.py      ← Stage 2 main script
 ├── scripts/
+│   ├── run_stage1_behaviors.py ← Stage 1 main script
+│   ├── run_stage2_stories.py   ← Stage 2 main script
 │   ├── check_progress.py      ← Check progress
 │   └── create_test_personas.py ← Create test data
 ├── src/                        ← Core logic

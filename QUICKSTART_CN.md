@@ -22,7 +22,7 @@ python -c "import openai; print('✓ OpenAI installed')"
 
 ```bash
 # Stage 1: 收集行为数据（约5-10分钟，6组数据）
-python run_stage1_behaviors.py \
+python scripts/run_stage1_behaviors.py \
     --models "openai/gpt-4o-mini,anthropic/claude-3.7-sonnet" \
     --personas data/inputs/personas_test.json
 
@@ -30,7 +30,7 @@ python run_stage1_behaviors.py \
 python scripts/check_progress.py
 
 # Stage 2: 生成故事（约3-5分钟，6个故事）
-python run_stage2_stories.py \
+python scripts/run_stage2_stories.py \
     --models "openai/gpt-4o-mini,anthropic/claude-3.7-sonnet" \
     --personas data/inputs/personas_test.json
 
@@ -99,30 +99,30 @@ done
 # Stage 1: 12 models × 32 personas = 384组
 # 预计时间：2-4小时
 # 预计成本：$20-30（取决于模型定价）
-python run_stage1_behaviors.py
+python scripts/run_stage1_behaviors.py
 
 # Stage 2: 384个故事
 # 预计时间：1-2小时
 # 预计成本：$2-5
-python run_stage2_stories.py
+python scripts/run_stage2_stories.py
 ```
 
 ### 方案B：分批运行（推荐，更安全）
 
 ```bash
 # 第一批：小模型（6个）
-python run_stage1_behaviors.py \
+python scripts/run_stage1_behaviors.py \
     --models "meta-llama/llama-3.2-3b-instruct,meta-llama/llama-3-8b-instruct,qwen/qwen-2.5-1.5b-instruct,qwen/qwen-2.5-7b-instruct,mistralai/mistral-7b-instruct,allenai/olmo-2-1124-7b-instruct"
 
 # 检查质量
 python scripts/check_progress.py
 
 # 如果没问题，继续第二批：大模型（6个）
-python run_stage1_behaviors.py \
+python scripts/run_stage1_behaviors.py \
     --models "meta-llama/llama-3.3-70b-instruct,meta-llama/llama-3.1-405b-instruct,qwen/qwen-2.5-72b-instruct,qwen/qwq-32b-preview,anthropic/claude-3.7-sonnet,openai/gpt-4o"
 
 # 全部完成后，生成故事
-python run_stage2_stories.py
+python scripts/run_stage2_stories.py
 ```
 
 ---
@@ -149,7 +149,7 @@ python scripts/check_progress.py
 cat data/outputs/logs/*.log
 
 # 只重跑失败的模型
-python run_stage1_behaviors.py --models "失败的模型名"
+python scripts/run_stage1_behaviors.py --models "失败的模型名"
 ```
 
 ### Q: 想要暂停/继续
@@ -159,7 +159,7 @@ python run_stage1_behaviors.py --models "失败的模型名"
 ```bash
 # 随时可以中断（Ctrl+C）
 # 重新运行会继续未完成的部分
-python run_stage1_behaviors.py
+python scripts/run_stage1_behaviors.py
 ```
 
 ### Q: 修改了story prompt，想重新生成
@@ -169,7 +169,7 @@ python run_stage1_behaviors.py
 # 2. 删除旧故事
 rm -rf data/outputs/stories/*
 # 3. 重新生成
-python run_stage2_stories.py
+python scripts/run_stage2_stories.py
 ```
 
 ---
@@ -217,9 +217,9 @@ python run_stage2_stories.py
 
 ```
 Final Project/
-├── run_stage1_behaviors.py    ← Stage 1主脚本
-├── run_stage2_stories.py      ← Stage 2主脚本
 ├── scripts/
+│   ├── run_stage1_behaviors.py ← Stage 1主脚本
+│   ├── run_stage2_stories.py   ← Stage 2主脚本
 │   ├── check_progress.py      ← 检查进度
 │   └── create_test_personas.py ← 创建测试数据
 ├── src/                        ← 核心逻辑

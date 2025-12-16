@@ -27,11 +27,11 @@ cp .env.example .env
 
 ```bash
 # 只测试2个模型 × 3个personas
-python run_stage1_behaviors.py \
+python scripts/run_stage1_behaviors.py \
     --models "openai/gpt-4o-mini,anthropic/claude-3.7-sonnet" \
     --personas data/inputs/personas_test.json
 
-python run_stage2_stories.py \
+python scripts/run_stage2_stories.py \
     --models "openai/gpt-4o-mini,anthropic/claude-3.7-sonnet" \
     --personas data/inputs/personas_test.json
 ```
@@ -40,10 +40,10 @@ python run_stage2_stories.py \
 
 ```bash
 # Stage 1: 收集所有行为数据（约需要数小时）
-python run_stage1_behaviors.py
+python scripts/run_stage1_behaviors.py
 
 # Stage 2: 生成故事（约需要1-2小时）
-python run_stage2_stories.py
+python scripts/run_stage2_stories.py
 
 # Stage 3: LIWC分析（你后面用LIWC-22工具做）
 # Stage 4: 统计分析（你后面用R/Python做）
@@ -55,7 +55,7 @@ python run_stage2_stories.py
 
 ### Stage 1: 行为数据收集 🔴
 
-**脚本**: `run_stage1_behaviors.py`
+**脚本**: `scripts/run_stage1_behaviors.py`
 
 **收集内容**:
 - ✅ BFI-44（Big Five Inventory，44个问题）
@@ -92,7 +92,7 @@ python run_stage2_stories.py
 
 **命令行参数**:
 ```bash
-python run_stage1_behaviors.py \
+python scripts/run_stage1_behaviors.py \
     --models "model1,model2,..."           # 指定模型
     --personas data/inputs/personas.json   # 指定personas文件
     --output-dir data/outputs/behaviors    # 输出目录
@@ -104,7 +104,7 @@ python run_stage1_behaviors.py \
 
 ### Stage 2: 故事生成（使用BFI预热）🟡
 
-**脚本**: `run_stage2_stories.py`
+**脚本**: `scripts/run_stage2_stories.py`
 
 **方法**:
 1. 读取Stage 1的BFI结果
@@ -126,7 +126,7 @@ python run_stage1_behaviors.py \
 
 **命令行参数**:
 ```bash
-python run_stage2_stories.py \
+python scripts/run_stage2_stories.py \
     --models "model1,model2,..."                 # 指定模型
     --personas data/inputs/personas.json         # 指定personas文件
     --behaviors-dir data/outputs/behaviors       # Stage 1输出目录
@@ -184,10 +184,10 @@ df = merge(behaviors, liwc)
 
 ```bash
 # 只测试Claude 3.7
-python run_stage1_behaviors.py \
+python scripts/run_stage1_behaviors.py \
     --models "anthropic/claude-3.7-sonnet"
 
-python run_stage2_stories.py \
+python scripts/run_stage2_stories.py \
     --models "anthropic/claude-3.7-sonnet"
 ```
 
@@ -205,8 +205,8 @@ python run_stage2_stories.py \
 
 然后运行：
 ```bash
-python run_stage1_behaviors.py --personas data/inputs/personas_test.json
-python run_stage2_stories.py --personas data/inputs/personas_test.json
+python scripts/run_stage1_behaviors.py --personas data/inputs/personas_test.json
+python scripts/run_stage2_stories.py --personas data/inputs/personas_test.json
 ```
 
 ### 场景3：只重跑故事生成
@@ -218,20 +218,20 @@ python run_stage2_stories.py --personas data/inputs/personas_test.json
 rm -rf data/outputs/stories/*
 
 # 重新生成（会自动读取Stage 1的BFI结果）
-python run_stage2_stories.py
+python scripts/run_stage2_stories.py
 ```
 
 ### 场景4：分批次运行（控制成本）
 
 ```bash
 # 第一批：6个小模型
-python run_stage1_behaviors.py \
+python scripts/run_stage1_behaviors.py \
     --models "meta-llama/llama-3.2-3b-instruct,meta-llama/llama-3-8b-instruct,qwen/qwen-2.5-1.5b-instruct,qwen/qwen-2.5-7b-instruct,mistralai/mistral-7b-instruct,allenai/olmo-2-1124-7b-instruct"
 
 # 检查数据质量...
 
 # 第二批：6个大模型
-python run_stage1_behaviors.py \
+python scripts/run_stage1_behaviors.py \
     --models "meta-llama/llama-3.3-70b-instruct,meta-llama/llama-3.1-405b-instruct,qwen/qwen-2.5-72b-instruct,qwen/qwq-32b-preview,anthropic/claude-3.7-sonnet,openai/gpt-4o"
 ```
 
@@ -298,7 +298,7 @@ python scripts/check_trait_mentions.py
 
 ```bash
 # 继续运行，只会处理未完成的
-python run_stage1_behaviors.py
+python scripts/run_stage1_behaviors.py
 ```
 
 ### Q2: 某个模型的API失败了怎么办？
@@ -307,7 +307,7 @@ python run_stage1_behaviors.py
 
 ```bash
 # 只重跑失败的模型
-python run_stage1_behaviors.py --models "失败的模型名"
+python scripts/run_stage1_behaviors.py --models "失败的模型名"
 ```
 
 ### Q3: 想要更改story prompt怎么办？
@@ -319,7 +319,7 @@ python run_stage1_behaviors.py --models "失败的模型名"
 rm -rf data/outputs/stories/*
 
 # 重新生成
-python run_stage2_stories.py
+python scripts/run_stage2_stories.py
 ```
 
 ### Q4: 如何估算总成本？
