@@ -1,0 +1,49 @@
+======================================================================
+LLM Personality Triangulation - Analysis Summary
+======================================================================
+
+RQ1: Predictive Validity (LIWC vs BFI)
+----------------------------------------------------------------------
+
+risk_mean_cards:
+  BFI (M1):  R² = 0.1462, AIC = 1585.9
+  LIWC (M2): R² = 0.2182, AIC = 1601.9
+  ΔR² = 0.0720
+  → LIWC predicts better than BFI
+
+sycophancy_rate:
+  BFI (M1):  R² = 0.0288, AIC = -256.5
+  LIWC (M2): R² = 0.1997, AIC = -266.7
+  ΔR² = 0.1709
+  → LIWC predicts better than BFI
+
+======================================================================
+RQ3: Differential Validity (LIWC-Behavior Associations)
+----------------------------------------------------------------------
+
+Total LIWC-Behavior pairs tested: 48
+Significant associations (p<0.05): 14 (29.2%)
+
+Top 10 Strongest Positive Associations:
+  Social               → risk_mean_cards      r= 0.268 *
+  we                   → risk_mean_cards      r= 0.241 *
+  tentat               → sycophancy_rate      r= 0.225 *
+  tone_pos             → risk_mean_cards      r= 0.223 *
+  socrefs              → risk_mean_cards      r= 0.219 *
+  Tone                 → risk_mean_cards      r= 0.208 *
+  risk                 → sycophancy_rate      r= 0.197 *
+  emo_anger            → sycophancy_rate      r= 0.179 *
+  Clout                → risk_mean_cards      r= 0.146 *
+  you                  → sycophancy_rate      r= 0.142 *
+
+Top 10 Strongest Negative Associations:
+  Tone                 → sycophancy_rate      r=-0.180 *
+  tone_pos             → sycophancy_rate      r=-0.138 *
+  Analytic             → risk_mean_cards      r=-0.125 *
+  Clout                → sycophancy_rate      r=-0.092 
+  cause                → sycophancy_rate      r=-0.089 
+  tentat               → risk_mean_cards      r=-0.088 
+  Social               → sycophancy_rate      r=-0.075 
+  we                   → sycophancy_rate      r=-0.068 
+  emo_anger            → risk_mean_cards      r=-0.067 
+  socrefs              → sycophancy_rate      r=-0.064 

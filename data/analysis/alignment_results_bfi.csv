@@ -1,0 +1,11 @@
+feature,behavior,expected_direction,actual_sign,coefficient,pvalue,significant,aligned,effect_size_expected,source,model_type
+extraversion,risk_mean_cards,1,1.0,0.15190529354410112,0.00019503958612449935,True,1,0.2,"Buelow & Cayton, 2020",BFI
+agreeableness,risk_mean_cards,0,1.0,0.07770321771167908,0.06074222790316533,False,1,0.05,"Buelow & Cayton, 2020",BFI
+conscientiousness,risk_mean_cards,-1,1.0,0.15050883786994193,0.000800691849586462,True,0,0.25,"Buelow & Cayton, 2020",BFI
+neuroticism,risk_mean_cards,1,-1.0,-0.13153168826204226,0.0012286662580017667,True,0,0.28,"Buelow & Cayton, 2020",BFI
+openness,risk_mean_cards,0,1.0,0.12463885093160046,0.004094925234688607,True,0,0.05,"Panno et al., 2024",BFI
+extraversion,sycophancy_rate,0,-1.0,-0.006330244435426427,0.8689538843878454,False,1,0.05,"Spee et al., 2017",BFI
+agreeableness,sycophancy_rate,1,-1.0,-0.005142054143636088,0.8950964671444954,False,0,0.28,"Bond & Smith, 1996",BFI
+conscientiousness,sycophancy_rate,1,1.0,0.02978407929114605,0.48086196397629666,False,1,0.2,"Spee et al., 2017",BFI
+neuroticism,sycophancy_rate,1,-1.0,-0.035113520829047846,0.35912379432228914,False,0,0.15,"Spee et al., 2017",BFI
+openness,sycophancy_rate,-1,1.0,0.1233673285269058,0.0025294465069056653,True,0,0.2,"Spee et al., 2017",BFI

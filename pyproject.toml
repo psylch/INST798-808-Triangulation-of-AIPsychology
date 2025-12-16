@@ -1,0 +1,16 @@
+[project]
+name = "llm-personality-triangulation"
+version = "0.1.0"
+description = "Deterministic LLM personality triangulation pipeline (stories + behaviors)."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "openai>=1.45.0",
+    "tqdm>=4.66.0",
+    "notebook>=7.1.0",
+    "ipykernel>=6.29.0",
+    "python-dotenv>=1.0.0",
+]
+
+[tool.uv]
+package = true
